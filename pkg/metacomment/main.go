@@ -1,4 +1,4 @@
-package main
+package metacomment
 
 import (
 	"go/ast"
@@ -6,14 +6,14 @@ import (
 	"go/token"
 	"log"
 	"os"
-
-	. "trying-mo/eu"
 )
 
 func main() {
 	src_path := "comstruct/in.go"
 	src, err := os.ReadFile(src_path)
-	Elf(err)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// output_path := "comstruct/out.go"
 
@@ -45,6 +45,12 @@ func main() {
 					} else {
 						println("No comment")
 					}
+
+					// Check if the field has tags
+					if field.Tag != nil {
+						println("Tag:", field.Tag.Value)
+					}
+
 				}
 			}
 		}
